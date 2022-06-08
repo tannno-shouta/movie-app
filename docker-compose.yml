@@ -1,0 +1,26 @@
+
+# docker-compose.yml
+version: "3.3"
+ 
+services:
+  # 追加
+  backend:
+    build:
+      context: .
+      dockerfile: ./Dockerfile-golang
+    ports:
+      - 4000:4000
+    volumes:
+      - ./backend-app:/app
+ 
+  frontend:
+    build:
+      context: .
+      dockerfile: ./Dockerfile-react
+    volumes:
+      - ./go-movies:/go-movies
+    command: >
+      sh -c "npm run start"
+    ports:
+      - "3000:3000"
+    container_name: frontend_2
